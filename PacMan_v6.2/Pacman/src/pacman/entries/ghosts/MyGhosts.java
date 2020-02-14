@@ -57,14 +57,15 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
 							mvIndex = PINKYChase(game, ghostType);
 						}
 						else mvIndex = BLINKYChase(game, ghostType);
-				}
+				} myMoves.put(ghostType, game.getApproximateNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghostType), mvIndex, game.getGhostLastMoveMade(ghostType), Constants.DM.EUCLID));
 			}
-			myMoves.put(key, value)
+			
 		}
 		return myMoves;
 	}
 	public int INKYChase(Game game, GHOST ghostType) {
         int mvIndex = game.getPacmanCurrentNodeIndex();
+        System.out.println("Inky chase activated");
         for(int i = 0; i < (tiles * 2); i++) {
             int tempIndex = game.getNeighbour(mvIndex, game.getPacmanLastMoveMade());
             if (tempIndex <= 0) break;
@@ -102,11 +103,13 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
 	// Clyde chase is the same as blinky but just scatter around
     public int CLYDEChase(Game game, GHOST ghostType) {
         // get the dist to pacman
+    	System.out.println("Clyde chase activated");
         double pacDist = game.getDistance(
                 game.getGhostCurrentNodeIndex(ghostType),
                 game.getPacmanCurrentNodeIndex(),
                 Constants.DM.EUCLID);
         if (pacDist <= (tiles * 8f)) {
+        	System.out.println("Clyde scatter");
         	return game.getPowerPillIndices()[0];
         }
         else return BLINKYChase(game, ghostType);
@@ -114,6 +117,7 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
     
     public int PINKYChase(Game game, GHOST ghostType) {
     	int mvIndex = game.getPacmanCurrentNodeIndex();
+    	System.out.println("Pinky chase activated");
     	for (int i = 0; i < (tiles * 4); i++) {
     		int tempIndex = game.getNeighbour(mvIndex, game.getPacmanLastMoveMade());
             if (tempIndex <= 0) break;
@@ -123,6 +127,7 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
     }
     
     public int BLINKYChase(Game game, GHOST ghostType) {
+    	System.out.println("blinky chase activated");
     	return game.getPacmanCurrentNodeIndex();
     }
     
